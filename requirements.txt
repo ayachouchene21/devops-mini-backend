@@ -2,6 +2,8 @@ fastapi
 uvicorn
 prometheus-client
 pytest
+flake8
+bandit
 httpx
 opentelemetry-sdk
 opentelemetry-instrumentation-fastapi

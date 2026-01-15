@@ -41,14 +41,14 @@ jobs:
           sleep 5
 
           # Run simple API tests using httpx
-            python - <<EOF
-            import httpx
-            urls = ["http://127.0.0.1:8000/health"]
-            for url in urls:
-                r = httpx.get(url)
-                assert r.status_code == 200
-                print(f"{url} OK")
-            EOF
+          python -c "
+          import httpx
+          urls = ['http://127.0.0.1:8000/health']
+          for url in urls:
+              r = httpx.get(url)
+              assert r.status_code == 200
+              print(f'{url} OK')
+          "
 
-                      # Stop FastAPI
+          # Stop FastAPI
           kill $SERVER_PID || true

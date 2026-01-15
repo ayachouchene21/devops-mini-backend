@@ -1,0 +1,44 @@
+# -----------------------
+# Deployment
+# -----------------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fastapi-app
+  template:
+    metadata:
+      labels:
+        app: fastapi-app
+    spec:
+      containers:
+      - name: fastapi-app
+        image: ayachouchen/fastapi-app:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8000
+        env:
+          - name: ENV
+            value: "production"
+
+---
+# -----------------------
+# Service
+# -----------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: fastapi-service
+spec:
+  type: NodePort          # For minikube / local testing
+  selector:
+    app: fastapi-app
+  ports:
+    - protocol: TCP
+      port: 80             # External service port
+      targetPort: 8000     # Pod container port
+      nodePort: 30080      # NodePort for local access

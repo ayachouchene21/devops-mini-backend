@@ -28,5 +28,33 @@ jobs:
       - name: Run tests
         run: 
           pytest
+
       
       
+      - name: Run unit tests
+        run: pytest
+
+      - name: Static security scan (Bandit)
+        run: |
+          bandit -r .
+
+      
+      - name: Dynamic security test (DAST)
+        run: |
+          # Start the FastAPI app in background
+          uvicorn app.main:app --host 0.0.0.0 --port 8000 &
+          sleep 5  # wait for server to start
+
+          # Run simple API tests using httpx
+          python - <<EOF
+          import httpx
+
+          urls = ["http://127.0.0.1:8000/health"]
+          for url in urls:
+              r = httpx.get(url)
+              assert r.status_code == 200
+              print(f"{url} OK")
+          EOF
+
+                    # Stop uvicorn
+                    pkill uvicorn || true

@@ -21,6 +21,6 @@ jobs:
 
       - name: Deploy to Minikube
         run: |
-          kubectl apply -f k8s.yaml
+          kubectl apply -f k8s.yaml  --validate=false
           kubectl rollout restart deployment/fastapi-app
           kubectl rollout status deployment/fastapi-app

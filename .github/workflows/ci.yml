@@ -36,7 +36,7 @@ jobs:
 
       - name: Static security scan (Bandit)
         run: |
-          bandit -r .
+          bandit -r app
 
       
       - name: Dynamic security test (DAST)

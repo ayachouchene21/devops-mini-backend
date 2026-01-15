@@ -1,9 +1,0 @@
-name: CD Pipeline
-
-on:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - 'Dockerfile'   # ignore Dockerfile changes temporarily
-      - '.github/workflows/cd.yml'  # ignore workflow changes temporarily
